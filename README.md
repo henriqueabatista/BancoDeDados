@@ -15,3 +15,9 @@ lógico https://app.brmodeloweb.com/#!/publicview/69d7c338e56bc192cf505d40
 conceitual https://app.brmodeloweb.com/#!/publicview/69d7c14ce56bc192cf505b6b
 
 lógico https://app.brmodeloweb.com/#!/publicview/69d7c1a9e56bc192cf505ba8
+
+## clinica 
+
+conceitual https://app.brmodeloweb.com/#!/publicview/69d7c13be56bc192cf505b62
+
+lógico https://app.brmodeloweb.com/#!/publicview/69e02a47e7f0a96088a493dd
