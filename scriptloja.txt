@@ -1,0 +1,226 @@
+Microsoft Windows [versão 10.0.19045.5131]
+(c) Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\Aluno>C:\xampp\mysql\bin
+'C:\xampp\mysql\bin' não é reconhecido como um comando interno
+ou externo, um programa operável ou um arquivo em lotes.
+
+C:\Users\Aluno>cd C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 54
+Server version: 10.4.27-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| loja               |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [(none)]> use loja
+Database changed
+MariaDB [loja]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| loja               |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [loja]> show tables;
++----------------+
+| Tables_in_loja |
++----------------+
+| categoria      |
+| produtos       |
++----------------+
+2 rows in set (0.001 sec)
+
+MariaDB [loja]> describe categoria
+    -> describe categoria;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'describe categoria' at line 2
+MariaDB [loja]> describe categoria;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| id_categoria | int(11)      | NO   | PRI | NULL    | auto_increment |
+| categoria    | varchar(255) | YES  |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+2 rows in set (0.021 sec)
+
+MariaDB [loja]> describe produtos;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| id_produto   | int(11)       | NO   | PRI | NULL    | auto_increment |
+| nome         | varchar(255)  | NO   |     | NULL    |                |
+| preco        | decimal(10,2) | NO   |     | NULL    |                |
+| quant        | int(11)       | NO   |     | NULL    |                |
+| marca        | varchar(255)  | NO   |     | NULL    |                |
+| observacoes  | varchar(255)  | YES  |     | NULL    |                |
+| id_categoria | int(11)       | YES  | MUL | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+7 rows in set (0.023 sec)
+
+MariaDB [loja]> alter table produtos add datacadastro date;
+Query OK, 0 rows affected (0.021 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [loja]> describe produtos;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| id_produto   | int(11)       | NO   | PRI | NULL    | auto_increment |
+| nome         | varchar(255)  | NO   |     | NULL    |                |
+| preco        | decimal(10,2) | NO   |     | NULL    |                |
+| quant        | int(11)       | NO   |     | NULL    |                |
+| marca        | varchar(255)  | NO   |     | NULL    |                |
+| observacoes  | varchar(255)  | YES  |     | NULL    |                |
+| id_categoria | int(11)       | YES  | MUL | NULL    |                |
+| datacadastro | date          | YES  |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+8 rows in set (0.025 sec)
+
+MariaDB [loja]> alter table produtos change quant to quantidade;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'to quantidade' at line 1
+MariaDB [loja]> rename table quant to quantidade;
+ERROR 1146 (42S02): Table 'loja.quant' doesn't exist
+MariaDB [loja]> alter table produtos change quant quantidade int;
+Query OK, 0 rows affected (0.100 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [loja]> describe produtos;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| id_produto   | int(11)       | NO   | PRI | NULL    | auto_increment |
+| nome         | varchar(255)  | NO   |     | NULL    |                |
+| preco        | decimal(10,2) | NO   |     | NULL    |                |
+| quantidade   | int(11)       | YES  |     | NULL    |                |
+| marca        | varchar(255)  | NO   |     | NULL    |                |
+| observacoes  | varchar(255)  | YES  |     | NULL    |                |
+| id_categoria | int(11)       | YES  | MUL | NULL    |                |
+| datacadastro | date          | YES  |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+8 rows in set (0.013 sec)
+
+MariaDB [loja]> alter table produtos add datavalidade date;
+Query OK, 0 rows affected (0.022 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [loja]> describe produtos;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| id_produto   | int(11)       | NO   | PRI | NULL    | auto_increment |
+| nome         | varchar(255)  | NO   |     | NULL    |                |
+| preco        | decimal(10,2) | NO   |     | NULL    |                |
+| quantidade   | int(11)       | YES  |     | NULL    |                |
+| marca        | varchar(255)  | NO   |     | NULL    |                |
+| observacoes  | varchar(255)  | YES  |     | NULL    |                |
+| id_categoria | int(11)       | YES  | MUL | NULL    |                |
+| datacadastro | date          | YES  |     | NULL    |                |
+| datavalidade | date          | YES  |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+9 rows in set (0.021 sec)
+
+MariaDB [loja]> alter table produtos drop column datavalidade;
+Query OK, 0 rows affected (0.024 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [loja]> describe produtos;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| id_produto   | int(11)       | NO   | PRI | NULL    | auto_increment |
+| nome         | varchar(255)  | NO   |     | NULL    |                |
+| preco        | decimal(10,2) | NO   |     | NULL    |                |
+| quantidade   | int(11)       | YES  |     | NULL    |                |
+| marca        | varchar(255)  | NO   |     | NULL    |                |
+| observacoes  | varchar(255)  | YES  |     | NULL    |                |
+| id_categoria | int(11)       | YES  | MUL | NULL    |                |
+| datacadastro | date          | YES  |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+8 rows in set (0.018 sec)
+
+MariaDB [loja]> rename table produtos to produto;
+Query OK, 0 rows affected (0.029 sec)
+
+MariaDB [loja]> show tables;
++----------------+
+| Tables_in_loja |
++----------------+
+| categoria      |
+| produto        |
++----------------+
+2 rows in set (0.001 sec)
+
+MariaDB [loja]> describe categoria;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| id_categoria | int(11)      | NO   | PRI | NULL    | auto_increment |
+| categoria    | varchar(255) | YES  |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+2 rows in set (0.022 sec)
+
+MariaDB [loja]> insert into categoria
+    -> ('Roupas');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''Roupas')' at line 2
+MariaDB [loja]> insert into categoria (categoria)
+    -> ('Roupas'),
+    -> ('Brinquedos'),
+    -> ('Eletrônicos),
+    '> ;
+    '> ;
+    '> '
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''Roupas'),
+('Brinquedos'),
+('Eletrônicos),
+;
+;
+'' at line 2
+MariaDB [loja]> insert into categoria (categoria) values
+    -> ('Eletrônicos'),
+    -> ('Roupas'),
+    -> ('Brinquedos'),
+    -> ('Frios'),
+    -> ('Padaria'),
+    -> ('Limpeza'),
+    -> ('Açougue');
+Query OK, 7 rows affected (0.014 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+MariaDB [loja]> select * from categoria;
++--------------+-------------+
+| id_categoria | categoria   |
++--------------+-------------+
+|            1 | Eletrônicos |
+|            2 | Roupas      |
+|            3 | Brinquedos  |
+|            4 | Frios       |
+|            5 | Padaria     |
+|            6 | Limpeza     |
+|            7 | Açougue     |
++--------------+-------------+
+7 rows in set (0.001 sec)
+
+MariaDB [loja]>
