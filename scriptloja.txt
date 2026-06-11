@@ -201,13 +201,11 @@ ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that 
 MariaDB [loja]> insert into categoria (categoria) values
     -> ('Eletrônicos'),
     -> ('Roupas'),
-    -> ('Brinquedos'),
-    -> ('Frios'),
-    -> ('Padaria'),
-    -> ('Limpeza'),
-    -> ('Açougue');
-Query OK, 7 rows affected (0.014 sec)
-Records: 7  Duplicates: 0  Warnings: 0
+    -> ('limpeza'),
+    -> ('Hortifruit'),
+    -> ('laticínios'),
+Query OK, 5 rows affected (0.014 sec)
+Records: 5  Duplicates: 0  Warnings: 0
 
 MariaDB [loja]> select * from categoria;
 +--------------+-------------+
@@ -215,12 +213,178 @@ MariaDB [loja]> select * from categoria;
 +--------------+-------------+
 |            1 | Eletrônicos |
 |            2 | Roupas      |
-|            3 | Brinquedos  |
-|            4 | Frios       |
-|            5 | Padaria     |
-|            6 | Limpeza     |
-|            7 | Açougue     |
+|            3 | limpeza     |
+|            4 | Hortifruit  |
+|            5 | laticínios  |    
 +--------------+-------------+
 7 rows in set (0.001 sec)
+
+MariaDB [loja]>
+Microsoft Windows [versão 10.0.19045.5131]
+(c) Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\Aluno>cd C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 90
+Server version: 10.4.27-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use loja;
+Database changed
+MariaDB [loja]> select *from categoria;
++--------------+-------------+
+| id_categoria | categoria   |
++--------------+-------------+
+|            1 | Eletrônicos |
+|            2 | Roupas      |
+|            3 | limpeza     |
+|            4 | Hortifruit  |
+|            5 | laticínios  |
++--------------+-------------+
+5 rows in set (0.001 sec)
+
+MariaDB [loja]> describe produtos;
+ERROR 1146 (42S02): Table 'loja.produtos' doesn't exist
+MariaDB [loja]> select * from produto;
+Empty set (0.001 sec)
+
+MariaDB [loja]> describe produto;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| id_produto   | int(11)       | NO   | PRI | NULL    | auto_increment |
+| nome         | varchar(255)  | NO   |     | NULL    |                |
+| preco        | decimal(10,2) | NO   |     | NULL    |                |
+| quantidade   | int(11)       | YES  |     | NULL    |                |
+| marca        | varchar(255)  | NO   |     | NULL    |                |
+| observacoes  | varchar(255)  | YES  |     | NULL    |                |
+| id_categoria | int(11)       | YES  | MUL | NULL    |                |
+| datacadastro | date          | YES  |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+8 rows in set (0.012 sec)
+
+MariaDB [loja]> insert into categoria (produto) values
+    -> ('Samsung A36', 2000.00, 1, 'Samsung', '', 1, '2026-06-11');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [loja]> describe categoria;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| id_categoria | int(11)      | NO   | PRI | NULL    | auto_increment |
+| categoria    | varchar(255) | YES  |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+2 rows in set (0.022 sec)
+
+MariaDB [loja]> select * from catgoria;
+ERROR 1146 (42S02): Table 'loja.catgoria' doesn't exist
+MariaDB [loja]> select * from categoria;
++--------------+-------------+
+| id_categoria | categoria   |
++--------------+-------------+
+|            1 | Eletrônicos |
+|            2 | Roupas      |
+|            3 | limpeza     |
+|            4 | Hortifruit  |
+|            5 | laticínios  |
++--------------+-------------+
+5 rows in set (0.001 sec)
+
+MariaDB [loja]> select *from produto;
+Empty set (0.001 sec)
+
+MariaDB [loja]> describe produto;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| id_produto   | int(11)       | NO   | PRI | NULL    | auto_increment |
+| nome         | varchar(255)  | NO   |     | NULL    |                |
+| preco        | decimal(10,2) | NO   |     | NULL    |                |
+| quantidade   | int(11)       | YES  |     | NULL    |                |
+| marca        | varchar(255)  | NO   |     | NULL    |                |
+| observacoes  | varchar(255)  | YES  |     | NULL    |                |
+| id_categoria | int(11)       | YES  | MUL | NULL    |                |
+| datacadastro | date          | YES  |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+8 rows in set (0.021 sec)
+
+MariaDB [loja]> insert into produto
+    -> ('Samsung A36', 2000.00, 5, 'Samsung', '', 1, '2026-06-11';)
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''Samsung A36', 2000.00, 5, 'Samsung', '', 1, '2026-06-11'' at line 2
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1
+MariaDB [loja]> insert into produto (nome, preco, quantidade, marca, observacoes, id_categoria, datacadastro) values
+    -> ('Samsung A36', )
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 2
+MariaDB [loja]> insert into produto (nome, preco, quantidade, marca, observacoes, id_categoria, datacadastro) values
+    -> ('Samsung A36', 2000.00, 5, 'Samsung', '', 1, '2026-06-11');
+Query OK, 1 row affected (0.018 sec)
+
+MariaDB [loja]> insert into produto (nome, preco, quantidade, marca, observacoes, id_categoria, datacadastro) values
+    -> ('Iphone 17',8000.00, 100, 'Apple', '', 1, '2026-06-11')
+    -> ('Blusa', 200.00, 200, 'Nike', 'Blusa vermelha de algodão', 2, '2026-06-11')
+    -> ('Camisa', 150.00, 200, 'Adidas', 'Camisa preta de algodão', 2, '2026-06-11')
+    -> ('Detergente', 10.00, 50, 'Minuano', '', 3, '2026-06-11')
+    -> ('Esponja de lavar louça', 5.00, 70, 'Scotch-Brite', '', 3, '2026-06-11')
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '('Blusa', 200.00, 200, 'Nike', 'Blusa vermelha de algodão', 2, '2026-06-11')...' at line 3
+MariaDB [loja]> insert into produto (nome, preco, quantidade, marca, observacoes, id_categoria, datacadastro) values
+    -> ('Iphone 17',8000.00, 100, 'Apple', '', 1, '2026-06-11'),
+    -> ('Blusa', 200.00, 200, 'Nike', 'Blusa vermelha de algodão', 2, '2026-06-11'),
+    -> ('Camisa', 150.00, 200, 'Adidas', 'Camisa preta de algodão', 2, '2026-06-11'),
+    -> ('Detergente', 10.00, 50, 'Minuano', '', 3, '2026-06-11'),
+    -> ('Esponja de lavar louça', 5.00, 70, 'Scotch-Brite', '', 3, '2026-06-11'),
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 6
+MariaDB [loja]> insert into produto (nome, preco, quantidade, marca, observacoes, id_categoria, datacadastro) values
+    -> ('Samsung A36', 2000.00, 5, 'Samsung', '', 1, '2026-06-11');
+Query OK, 1 row affected (0.013 sec)
+
+MariaDB [loja]> insert into produto (nome, preco, quantidade, marca, observacoes, id_categoria, datacadastro) values
+    -> ('Iphone 17',8000.00, 100, 'Apple', '', 1, '2026-06-11');
+Query OK, 1 row affected (0.014 sec)
+
+MariaDB [loja]> insert into produto (nome, preco, quantidade, marca, observacoes, id_categoria, datacadastro) values
+    -> ('Blusa', 200.00, 200, 'Nike', 'Blusa vermelha de algodão', 2, '2026-06-11'),
+    -> ('Camisa', 150.00, 200, 'Adidas', 'Camisa preta de algodão', 2, '2026-06-11');
+Query OK, 2 rows affected (0.013 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [loja]> insert into produto (nome, preco, quantidade, marca, observacoes, id_categoria, datacadastro) values
+    -> ('Detergente', 10.00, 50, 'Minuano', '', 3, '2026-06-11'),
+    -> ('Esponja de lavar louça', 5.00, 70, 'Scotch-Brite', '', 3, '2026-06-11');
+Query OK, 2 rows affected (0.011 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [loja]> insert into produto (nome, preco, quantidade, marca, observacoes, id_categoria, datacadastro) values
+    -> ('Banana', 10.0, 350, 'Não tem marca', 'Banana prata', 4, '2026-06-11'),
+    -> ('Cebola', 5.0, 350, 'Não tem marca', 'Cebola branca', 4, '2026-06-11'),
+    -> ('Leite', 7.0, 550, 'Nestlé', '', 5, '2026-06-11'),
+    -> ('Queijo', 25.00, 550, 'Perdigão', 'Queijo minas', 5, '2026-06-11');
+Query OK, 4 rows affected (0.011 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [loja]> select * from produto;
++------------+------------------------+---------+------------+---------------+---------------------------+--------------+--------------+
+| id_produto | nome                   | preco   | quantidade | marca         | observacoes               | id_categoria | datacadastro |
++------------+------------------------+---------+------------+---------------+---------------------------+--------------+--------------+
+|          1 | Samsung A36            | 2000.00 |          5 | Samsung       |                           |            1 | 2026-06-11   |
+|          2 | Samsung A36            | 2000.00 |          5 | Samsung       |                           |            1 | 2026-06-11   |
+|          3 | Iphone 17              | 8000.00 |        100 | Apple         |                           |            1 | 2026-06-11   |
+|          4 | Blusa                  |  200.00 |        200 | Nike          | Blusa vermelha de algodão |            2 | 2026-06-11   |
+|          5 | Camisa                 |  150.00 |        200 | Adidas        | Camisa preta de algodão   |            2 | 2026-06-11   |
+|          6 | Detergente             |   10.00 |         50 | Minuano       |                           |            3 | 2026-06-11   |
+|          7 | Esponja de lavar louça |    5.00 |         70 | Scotch-Brite  |                           |            3 | 2026-06-11   |
+|          8 | Banana                 |   10.00 |        350 | Não tem marca | Banana prata              |            4 | 2026-06-11   |
+|          9 | Cebola                 |    5.00 |        350 | Não tem marca | Cebola branca             |            4 | 2026-06-11   |
+|         10 | Leite                  |    7.00 |        550 | Nestlé        |                           |            5 | 2026-06-11   |
+|         11 | Queijo                 |   25.00 |        550 | Perdigão      | Queijo minas              |            5 | 2026-06-11   |
++------------+------------------------+---------+------------+---------------+---------------------------+--------------+--------------+
+11 rows in set (0.001 sec)
 
 MariaDB [loja]>
